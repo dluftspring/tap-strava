@@ -29,17 +29,18 @@ class stravaStream(RESTStream):
             )
 
 
-    def get_next_page_token(self, response: requests.Response) -> int:
+    def get_next_page_token(self, response: requests.Response, current_value: int) -> int:
         """
         Returns the next page integer based on prior page in the request
         """
 
+        self.logger.debug(f"Current value of the page number is {current_value}")
         # Break if the result is empty meaning we're on the last page
-        if not response.json()[0]:
+        if not response.json():
             next_page_token = None
         else:
-            prior_page = parse_qs(urlparse(response.request.url).query).get('page', [1])
-            next_page_token = int(prior_page[0]) + 1
+            prior_page = parse_qs(urlparse(response.request.url).query).get('page', [1])[0]
+            next_page_token = int(prior_page) + 1
 
         return next_page_token
 
