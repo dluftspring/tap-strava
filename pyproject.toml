@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "tap-strava"
+version = "0.1.0"
+description = "Singer tap for the strava API"
+authors = ["dluftspring <daniel.luftspring@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+packages = [
+    { include = "tap_strava" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+singer-sdk = "^0.16.0"
+requests = "^2.26.0"
+singer = "^0.1.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+tap-strava = "tap_strava.tap:tapStrava.cli"
