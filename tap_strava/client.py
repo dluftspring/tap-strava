@@ -1,7 +1,7 @@
 import os
 import datetime
 import requests
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, Union
 
 from singer_sdk import RESTStream
 from tap_strava.auth import StravaAuthenticator
@@ -31,7 +31,7 @@ class stravaStream(RESTStream):
 
     def get_next_page_token(
         self, response: requests.Response, current_value: int
-    ) -> Any[None, int]:
+    ) -> Union[None, int]:
         """
         Returns the next page integer based on prior page in the request
         """
