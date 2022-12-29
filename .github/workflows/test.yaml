@@ -1,0 +1,24 @@
+name: Run tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - name: Install dependency manager
+        run: pip install poetry
+      - name: Install project dependencies
+        run: poetry install
+      - name: Call pytest
+        env:
+          TAP_STRAVA_CLIENT_ID: ${{ secrets.TAP_STRAVA_CLIENT_ID }}
+          TAP_STRAVA_CLIENT_SECRET: ${{ secrets.TAP_STRAVA_CLIENT_SECRET }}
+          TAP_STRAVA_REFRESH_TOKEN: ${{ secrets.TAP_STRAVA_REFRESH_TOKEN }}
+        run: poetry run pytest

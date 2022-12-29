@@ -7,6 +7,10 @@
         "photos": {
             "$ref": "https://developers.strava.com/swagger/photo.json#/PhotosSummary"
         },
+        "id": {
+            "type": "integer",
+            "description": "The unique identifier of the activity"
+        },
         "gear": {
             "$ref": "https://developers.strava.com/swagger/gear.json#/SummaryGear"
         },
@@ -201,7 +205,10 @@
             "description": "Whether the activity is muted"
         },
         "gear_id": {
-            "type": "string",
+            "type": [
+                "string",
+                "null"
+            ],
             "description": "The id of the gear for the activity"
         },
         "kilojoules": {

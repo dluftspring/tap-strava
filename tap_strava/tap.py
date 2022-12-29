@@ -10,8 +10,10 @@ STREAM_TYPES = [
     ActivitiesStream,
 ]
 
+
 class tapStrava(Tap):
     """Strava tap class."""
+
     name = "tap-strava"
 
     config_jsonschema = th.PropertiesList(
@@ -19,20 +21,20 @@ class tapStrava(Tap):
             "client_id",
             th.StringType,
             required=True,
-            description="The integer identifier of your Strava application"
+            description="The integer identifier of your Strava application",
         ),
         th.Property(
             "client_secret",
             th.StringType,
             required=True,
-            description="String secret of your strava application"
+            description="String secret of your strava application",
         ),
         th.Property(
             "refresh_token",
             th.StringType,
             required=True,
-            description="Scoped refresh token obtained from the Strava oauth flow"
-        )
+            description="Scoped refresh token obtained from the Strava oauth flow",
+        ),
     ).to_dict()
 
     def discover_streams(self) -> List[Stream]:
