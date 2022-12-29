@@ -41,9 +41,9 @@ class stravaStream(RESTStream):
         if not response.json():
             next_page_token = None
         else:
-            prior_page = parse_qs(urlparse(response.request.url).query).get(
-                "page", [1]
-            )[0]
+            parsed_url = urlparse(response.request.url)
+            query_string = parse_qs(parsed_url.query)
+            prior_page = query_string.get("page", [1])[0]
             next_page_token = int(prior_page) + 1
 
         return next_page_token
