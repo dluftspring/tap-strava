@@ -1,6 +1,6 @@
 # tap-strava
 
-This is a singer tap for the Strava API built using Meltano's singer_sdk.
+This is a singer tap for the [Strava API](https://developers.strava.com/docs/) built using Meltano's [singer SDK](https://github.com/meltano/sdk).
 
 ## Quickstart
 
@@ -18,11 +18,60 @@ poetry run tap-strava --config <path-to-your-config.json> --test
 
 This should validate the tap by trying to sync a single record from the available streams
 
+### For developers
+
+```bash
+poetry install
+```
+
+```bash
+poetry run pytest
+```
+
+We use mypy for static type checking and black for formatting in CI. To run these locally:
+
+```bash
+poetry run mypy -p tap_strava
+```
+
+```bash
+poetry run black tap_strava
+```
+
+It's recommended you set these up as pre-commit hooks to make contributing easier
+
 ## Configuration
 
 The tap requires a refresh token, client id, and client secret to be configured. You can get these by following the steps below.
 
 The tap requires a `config.json` file which contains each of your three credentials. Right now the tap only supports a single stream from the `/athlete/activities` endpoint but more will be added in the future.
+
+### Accepted Config Options
+
+A full list of supported settings and capabilities for this
+tap is available by running:
+
+```bash
+tap-strava --about
+```
+
+You'll need to supply three config parameters
+
+| Parameter | Description | Type | Env Variable Alias |
+| :-------- | :---------- | :--- | :----------------- |
+| client_id | Unique client identifier for your strava application | string (required) | TAP_STRAVA_CLIENT_ID |
+| client_secret | Unique secret key for your strava application | string (required) | TAP_STRAVA_CLIENT_SECRET |
+| refresh_token | Scoped refresh token obtained from the Strava Oauth flow | string (required) | TAP_STRAVA_REFRESH_TOKEN |
+
+You can set these parameters as environment variables or by specifying a json configuration file with the following info
+
+```json
+
+  {
+    "client_id": "<YOUR CLIENT ID>",
+    "client_secret": "<YOUR CLIENT SECRET>",
+    "refresh_token": "<YOUR REFRESH TOKEN>"
+  }
 
 ## Getting a properly scoped refresh token
 
@@ -64,12 +113,12 @@ You'll get a response like
 
 ```json
 {
-    'token_type': 'Bearer',
-    'expires_at': 1672268955,
-    'expires_in': 21600,
-    'refresh_token': 'definitely-a-real-refresh-token',
-    'access_token': 'definitely-a-real-access-token',
-     .
+    "token_type": "Bearer",
+    "expires_at": 1672268955,
+    "expires_in": 21600,
+    "refresh_token": "definitely-a-real-refresh-token",
+    "access_token": "definitely-a-real-access-token",
+    .
     .
     .
 }

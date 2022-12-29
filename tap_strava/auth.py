@@ -5,6 +5,7 @@ import requests
 from singer import utils
 from singer_sdk.helpers._util import utc_now
 
+
 class StravaAuthenticator(APIAuthenticatorBase):
     """Strava API OAuth Authenticator"""
 
@@ -83,7 +84,7 @@ class StravaAuthenticator(APIAuthenticatorBase):
         return {
             "client_id": self.client_id,
             "client_secret": self.client_secret,
-            "refresh_token": self.refresh_token or self.config.get('refresh_token'),
+            "refresh_token": self.refresh_token or self.config.get("refresh_token"),
             "grant_type": "refresh_token",
         }
 

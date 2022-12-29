@@ -3,6 +3,7 @@ from tap_strava.client import stravaStream
 
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
+
 class ActivitiesStream(stravaStream):
     name = "activities"
     path = "/athlete/activities"
