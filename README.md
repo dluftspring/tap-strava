@@ -72,6 +72,7 @@ You can set these parameters as environment variables or by specifying a json co
     "client_secret": "<YOUR CLIENT SECRET>",
     "refresh_token": "<YOUR REFRESH TOKEN>"
   }
+```
 
 ## Getting a properly scoped refresh token
 
