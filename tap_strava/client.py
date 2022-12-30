@@ -59,4 +59,15 @@ class stravaStream(RESTStream):
             "page": next_page_token,
         }
 
+        if self.config['start_date']:
+            params['after'] = self._datetime_to_epoch_time(self.config['start_date'])
+        if self.config['end_date']:
+            params['before'] = self._datetime_to_epoch_time(self.config['end_date'])
+
         return params
+
+    def _datetime_to_epoch_time(self, dt: str) -> int:
+        """
+        Converts a datetime string to epoch time
+        """
+        return datetime.datetime.strptime(dt, "%Y-%m-%d").strftime('%s')

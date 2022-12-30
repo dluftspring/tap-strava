@@ -35,6 +35,18 @@ class tapStrava(Tap):
             required=True,
             description="Scoped refresh token obtained from the Strava oauth flow",
         ),
+        th.Property(
+            "start_date",
+            th.DateTimeType,
+            required=False,
+            description="Start date for the data sync in YYYY-MM-DD format",
+        ),
+        th.Property(
+            "end_date",
+            th.DateTimeType,
+            required=False,
+            description="End date for the data sync in YYYY-MM-DD format",
+        )
     ).to_dict()
 
     def discover_streams(self) -> List[Stream]:

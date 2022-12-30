@@ -4,6 +4,7 @@ This is a singer tap for the [Strava API](https://developers.strava.com/docs/) b
 
 
 [![Unit Tests](https://github.com/dluftspring/tap-strava/actions/workflows/test.yaml/badge.svg)](https://github.com/dluftspring/tap-strava/actions/workflows/test.yaml)
+[![Integration tests](https://github.com/dluftspring/tap-strava/actions/workflows/integration_tests.yml/badge.svg)](https://github.com/dluftspring/tap-strava/actions/workflows/integration_tests.yml)
 ## Quickstart
 
 Install poetry for your OS and then run:
@@ -64,6 +65,10 @@ You'll need to supply three config parameters
 | client_id | Unique client identifier for your strava application | string (required) | TAP_STRAVA_CLIENT_ID |
 | client_secret | Unique secret key for your strava application | string (required) | TAP_STRAVA_CLIENT_SECRET |
 | refresh_token | Scoped refresh token obtained from the Strava Oauth flow | string (required) | TAP_STRAVA_REFRESH_TOKEN |
+| start_date | Date from which to start syncing data in YYYY-MM-DD format | Date (optional) | TAP_STRAVA_START_DATE |
+| end_date | Date at which to stop syncing data in YYYY-MM-DD format | Date (optional) | TAP_STRAVA_END_DATE |
+
+Note that the usage of start and end date parameters will override the default behaviour of syncing based on incremental state
 
 You can set these parameters as environment variables or by specifying a json configuration file with the following info
 
@@ -72,7 +77,9 @@ You can set these parameters as environment variables or by specifying a json co
   {
     "client_id": "<YOUR CLIENT ID>",
     "client_secret": "<YOUR CLIENT SECRET>",
-    "refresh_token": "<YOUR REFRESH TOKEN>"
+    "refresh_token": "<YOUR REFRESH TOKEN>",
+    "start_date": "2021-01-01",
+    "end_date": "2021-01-31"
   }
 ```
 

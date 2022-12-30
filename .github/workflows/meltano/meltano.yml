@@ -21,10 +21,14 @@ plugins:
     - name: client_id
     - name: client_secret
     - name: refresh_token
+    - name: start_date
+    - name: end_date
     config:
       client_id: ${TAP_STRAVA_CLIENT_ID}
       client_secret: ${TAP_STRAVA_CLIENT_SECRET}
       refresh_token: ${TAP_STRAVA_REFRESH_TOKEN}
+      start_date: 2022-11-01
+      end_date: 2022-11-15
   loaders:
   - name: target-jsonl
     config:
