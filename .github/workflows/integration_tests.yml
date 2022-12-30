@@ -1,0 +1,27 @@
+name: Integration tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  meltano:
+    runs-on: ubuntu-latest
+    env:
+      TAP_STRAVA_CLIENT_ID: ${{ secrets.TAP_STRAVA_CLIENT_ID }}
+      TAP_STRAVA_CLIENT_SECRET: ${{ secrets.TAP_STRAVA_CLIENT_SECRET }}
+      TAP_STRAVA_REFRESH_TOKEN: ${{ secrets.TAP_STRAVA_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - name: Install pipx
+        run: python -m pip install pipx
+      - name: Install meltano
+        run: pipx install meltano
+      - name: Run meltano
+        working-directory: .github/workflows/meltano
+        run: |
+          meltano install --clean
+          meltano elt tap-strava target-jsonl
+

@@ -2,6 +2,8 @@
 
 This is a singer tap for the [Strava API](https://developers.strava.com/docs/) built using Meltano's [singer SDK](https://github.com/meltano/sdk).
 
+
+[![Unit Tests](https://github.com/dluftspring/tap-strava/actions/workflows/test.yaml/badge.svg)](https://github.com/dluftspring/tap-strava/actions/workflows/test.yaml)
 ## Quickstart
 
 Install poetry for your OS and then run:
