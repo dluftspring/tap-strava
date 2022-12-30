@@ -25,5 +25,5 @@ jobs:
         working-directory: .github/workflows/meltano
         run: |
           meltano install --clean
-          meltano elt tap-strava target-jsonl
+          meltano --log-level=debug elt tap-strava target-jsonl
 
