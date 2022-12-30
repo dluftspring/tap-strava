@@ -30,6 +30,10 @@ def set_sample_config(config_path: Path) -> Dict[str, Any]:
         or file_config_params.get("client_secret", None),
         "refresh_token": os.getenv("TAP_STRAVA_REFRESH_TOKEN")
         or file_config_params.get("refresh_token", None),
+        "start_date": os.getenv("TAP_STRAVA_START_DATE")
+        or file_config_params.get("start_date", None),
+        "end_date": os.getenv("TAP_STRAVA_END_DATE")
+        or file_config_params.get("end_date", None),
     }
 
     return config_to_test

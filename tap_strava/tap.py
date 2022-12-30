@@ -46,7 +46,7 @@ class tapStrava(Tap):
             th.DateTimeType,
             required=False,
             description="End date for the data sync in YYYY-MM-DD format",
-        )
+        ),
     ).to_dict()
 
     def discover_streams(self) -> List[Stream]:
