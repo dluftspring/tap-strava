@@ -1,0 +1,36 @@
+version: 1
+default_environment: dev
+environments:
+- name: dev
+- name: staging
+- name: prod
+
+plugins:
+
+  extractors:
+  - name: tap-strava
+    namespace: tap_strava
+    pip_url: -e ../../../
+    executable: tap-strava
+    capabilities:
+    - catalog
+    - discover
+    - properties
+    - state
+    settings:
+    - name: client_id
+    - name: client_secret
+    - name: refresh_token
+    - name: start_date
+    - name: end_date
+    config:
+      client_id: ${TAP_STRAVA_CLIENT_ID}
+      client_secret: ${TAP_STRAVA_CLIENT_SECRET}
+      refresh_token: ${TAP_STRAVA_REFRESH_TOKEN}
+      start_date: 2022-11-01
+      end_date: 2022-11-15
+  loaders:
+  - name: target-jsonl
+    config:
+      destintation_path: /tmp/strava-sync.json
+project_id: a334dafa-6520-48f2-8370-a2d83241342b

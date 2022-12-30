@@ -179,7 +179,10 @@
             "description": "Whether this activity is flagged"
         },
         "workout_type": {
-            "type": "integer",
+            "type": [
+                "integer",
+                "null"
+            ],
             "description": "The activity's workout type"
         },
         "upload_id_str": {
