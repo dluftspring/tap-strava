@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 from jsonschema import validate
 from jsonschema.validators import Draft7Validator
 from singer_sdk.testing import get_standard_tap_tests
-from tap_strava.tap import tapStrava
+from tap_strava.tap import TapStrava
 from typing import Dict, Any
 
 CONFIG_PATH = Path(__file__).parent.parent.parent / Path(".secrets/config.json")
@@ -94,7 +94,7 @@ def test_standard_tap_tests():
     """Run standard tap tests from the SDK."""
     SAMPLE_CONFIG = set_sample_config(CONFIG_PATH)
 
-    tests = get_standard_tap_tests(tapStrava, config=SAMPLE_CONFIG)
+    tests = get_standard_tap_tests(TapStrava, config=SAMPLE_CONFIG)
     for test in tests:
         test()
 

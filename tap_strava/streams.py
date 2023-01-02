@@ -5,6 +5,7 @@ from tap_strava.client import StravaStream
 
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
+
 class ActivitiesStream(StravaStream):
     name = "activities"
     path = "/athlete/activities"
@@ -17,9 +18,8 @@ class ActivitiesStream(StravaStream):
         This is how we pass activity_id to all relevant substreams that inherit
         from the Activities Stream class
         """
-        return {
-            "activity_id": record["id"]
-            }
+        return {"activity_id": record["id"]}
+
 
 class ActivityKudoersStream(StravaStream):
     """
@@ -31,6 +31,7 @@ class ActivityKudoersStream(StravaStream):
     ignore_parent_replication_keys = True
     path = "/activities/{activity_id}/kudos"
     schema_filepath = SCHEMAS_DIR / "activity_kudoers.json"
+
 
 class ActivityCommentsStream(StravaStream):
     """
@@ -64,7 +65,6 @@ class ActivityCommentsStream(StravaStream):
 
         return next_page_token
 
-
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
     ) -> Dict[str, Any]:
@@ -85,6 +85,3 @@ class ActivityCommentsStream(StravaStream):
             params["before"] = self._datetime_to_epoch_time(end_date)
 
         return params
-
-
-
