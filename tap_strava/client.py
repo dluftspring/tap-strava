@@ -8,7 +8,7 @@ from tap_strava.auth import StravaAuthenticator
 from urllib.parse import parse_qs, urlparse
 
 
-class stravaStream(RESTStream):
+class StravaStream(RESTStream):
 
     """
     Base stream class for the Strava API

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-strava"
-version = "0.1.0"
+version = "0.2.0"
 description = "Singer tap for the strava API"
 authors = ["dluftspring <daniel.luftspring@gmail.com>"]
 license = "MIT"
@@ -34,5 +34,5 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-tap-strava = "tap_strava.tap:tapStrava.cli"
+tap-strava = "tap_strava.tap:TapStrava.cli"
 swagger-sync = "scripts.swagger_sync:main"

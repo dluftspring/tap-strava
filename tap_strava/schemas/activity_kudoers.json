@@ -1,0 +1,16 @@
+{
+    "properties": {
+        "resource_state": {
+            "type": "integer"
+        },
+        "activity_id": {
+            "type": "integer"
+        },
+        "firstname": {
+            "type": "string"
+        },
+        "lastname": {
+            "type": "string"
+        }
+    }
+}
