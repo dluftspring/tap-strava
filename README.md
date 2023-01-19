@@ -7,16 +7,16 @@ This is a singer tap for the [Strava API](https://developers.strava.com/docs/) b
 [![Integration tests](https://github.com/dluftspring/tap-strava/actions/workflows/integration_tests.yml/badge.svg)](https://github.com/dluftspring/tap-strava/actions/workflows/integration_tests.yml)
 ## Quickstart
 
-Install poetry for your OS and then run:
+Install the repo from source:
 
 ```bash
-poetry install
+pip install git+https://github.com/dluftspring/tap-strava.git
 ```
 
 To run the tap:
 
 ```bash
-poetry run tap-strava --config <path-to-your-config.json> --test
+tap-strava --config <path-to-your-config.json> --test
 ```
 
 This should validate the tap by trying to sync a single record from the available streams

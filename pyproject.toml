@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-strava"
-version = "0.2.0"
+version = "0.3.0"
 description = "Singer tap for the strava API"
 authors = ["dluftspring <daniel.luftspring@gmail.com>"]
 license = "MIT"

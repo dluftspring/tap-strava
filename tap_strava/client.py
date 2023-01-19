@@ -1,7 +1,8 @@
-import os
+import time
 import datetime
 import requests
 from typing import Dict, Optional, Any, Union
+from singer_sdk.exceptions import RetriableAPIError, FatalAPIError
 
 from singer_sdk import RESTStream
 from tap_strava.auth import StravaAuthenticator
@@ -68,6 +69,45 @@ class StravaStream(RESTStream):
             params["before"] = self._datetime_to_epoch_time(end_date)
 
         return params
+
+    def check_rate_limit(self, response: requests.Response) -> dict:
+        """
+        Checks the rate limit and sleeps if we're over the limit
+        """
+
+        rate_limit = response.headers.get("x-ratelimit-limit", None)
+        rate_usage = response.headers.get("x-ratelimit-usage", None)
+        per_15_min_limit, daily_limit = rate_limit.strip().split(",")
+        per_15_min_usage, daily_usage = rate_usage.strip().split(",")
+        self.logger.info(
+            f"""You have used: {per_15_min_usage} of your {per_15_min_limit} 15 minute allocation
+            You have used: {daily_usage} of your {daily_limit} daily alocation"""
+        )
+
+        if int(per_15_min_usage) >= int(per_15_min_limit):
+            self.logger.info("Rate limit exceeded, going to sleep for 15 minutes")
+            time.sleep(900)
+
+        if int(daily_usage) >= int(daily_limit):
+            raise FatalAPIError("Daily rate limit exceeded... exiting", response)
+
+    def validate_response(self, response: requests.Response) -> None:
+        """
+        Custom implementation of sdk API validation method so we can
+        throttle the requests if we're over the 15 minute or daily rate
+        limit imposed by the Strava API
+        """
+
+        self.check_rate_limit(response)
+        if (
+            response.status_code in self.extra_retry_statuses
+            or 500 <= response.status_code < 600
+        ):
+            msg = self.response_error_message(response)
+            raise RetriableAPIError(msg, response)
+        elif 400 <= response.status_code < 500:
+            msg = self.response_error_message(response)
+            raise FatalAPIError(msg)
 
     def _datetime_to_epoch_time(self, dt: str) -> int:
         """
