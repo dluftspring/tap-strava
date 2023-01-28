@@ -80,8 +80,8 @@ class StravaStream(RESTStream):
         per_15_min_limit, daily_limit = rate_limit.strip().split(",")
         per_15_min_usage, daily_usage = rate_usage.strip().split(",")
         self.logger.info(
-            f"""You have used: {per_15_min_usage} of your {per_15_min_limit} 15 minute allocation
-            You have used: {daily_usage} of your {daily_limit} daily alocation"""
+            f"""You have used: {per_15_min_usage} of your {per_15_min_limit} 15 minute request allocation
+            You have used: {daily_usage} of your {daily_limit} daily request allocation"""
         )
 
         if int(per_15_min_usage) >= int(per_15_min_limit):
