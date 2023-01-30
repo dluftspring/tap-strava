@@ -67,7 +67,9 @@ class StravaStream(RESTStream):
             start_value = self.get_starting_replication_key_value(context)
             self.logger.debug(f"Your starting replication value is: {start_value}")
             if start_value:
-                params["after"] = self._datetime_to_epoch_time(start_value, format='%Y-%m-%dT%H:%M:%SZ')
+                params["after"] = self._datetime_to_epoch_time(
+                    start_value, format="%Y-%m-%dT%H:%M:%SZ"
+                )
         if start_date:
             params["after"] = self._datetime_to_epoch_time(start_date)
         if end_date:
@@ -114,7 +116,7 @@ class StravaStream(RESTStream):
             msg = self.response_error_message(response)
             raise FatalAPIError(msg)
 
-    def _datetime_to_epoch_time(self, dt: str, format='%Y-%m-%d') -> int:
+    def _datetime_to_epoch_time(self, dt: str, format="%Y-%m-%d") -> int:
         """
         Converts a datetime string to epoch time
         """
