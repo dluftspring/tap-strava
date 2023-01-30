@@ -39,7 +39,10 @@
             "description": "The time at which this comment was created."
         },
         "cursor": {
-            "type": "string",
+            "type": [
+                "string",
+                "null"
+            ],
             "description": "The cursor used to paginate through the list of comments"
         }
     }
