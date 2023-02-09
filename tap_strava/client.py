@@ -68,9 +68,7 @@ class StravaStream(RESTStream):
             start_value = self.get_starting_replication_key_value(context)
             self.logger.debug(f"Your starting replication value is: {start_value}")
             if start_value:
-                params["after"] = self._datetime_to_epoch_time(
-                    start_value
-                )
+                params["after"] = self._datetime_to_epoch_time(start_value)
         if start_date:
             params["after"] = self._datetime_to_epoch_time(start_date)
         if end_date:
