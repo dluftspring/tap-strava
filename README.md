@@ -23,6 +23,8 @@ This should validate the tap by trying to sync a single record from the availabl
 
 ### For developers
 
+If you're using this tap with vscode you can use a devcontainer to get up and running quickly. If you aren't then follow the additional steps below.
+
 ```bash
 poetry install
 ```

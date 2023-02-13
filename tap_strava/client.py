@@ -1,6 +1,7 @@
 import time
 import datetime
 import requests
+from dateutil import parser as date_parser
 from typing import Dict, Optional, Any, Union
 from singer_sdk.exceptions import RetriableAPIError, FatalAPIError
 
@@ -63,6 +64,11 @@ class StravaStream(RESTStream):
         start_date = self.config.get("start_date", None)
         end_date = self.config.get("end_date", None)
 
+        if self.replication_key:
+            start_value = self.get_starting_replication_key_value(context)
+            self.logger.debug(f"Your starting replication value is: {start_value}")
+            if start_value:
+                params["after"] = self._datetime_to_epoch_time(start_value)
         if start_date:
             params["after"] = self._datetime_to_epoch_time(start_date)
         if end_date:
@@ -113,4 +119,6 @@ class StravaStream(RESTStream):
         """
         Converts a datetime string to epoch time
         """
-        return datetime.datetime.strptime(dt, "%Y-%m-%d").strftime("%s")
+
+        self.logger.debug(f"Trying to convert {dt} to epoch time")
+        return date_parser.parse(dt).strftime("%s")

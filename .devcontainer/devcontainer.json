@@ -1,0 +1,58 @@
+{
+    "name": "tap-strava Devcontainer",
+    "build": {
+      "dockerfile": "./Dockerfile",
+      "args": { "PYTHON_VERSION": "3.10" }
+    },
+
+    "mounts": ["source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind"],
+
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+          // Set *default* container specific settings.json values on container create.
+          "settings": {
+            "emeraldwalk.runonsave": {
+              "commands": [
+                { "match": "\\.py", "cmd": "ruff ${file} --fix" }
+              ]
+            },
+            "terminal.integrated.defaultProfile.linux": "zsh",
+            "python.linting.enabled": true,
+            "python.formatting.provider": "none",
+            "python.linting.banditEnabled": true,
+            "python.linting.mypyEnabled": true,
+            "python.linting.pydocstyleEnabled": true,
+            "python.analysis.typeCheckingMode": "basic",
+            "[python]": {
+              "editor.defaultFormatter": "ms-python.black-formatter",
+              "editor.formatOnSave": true,
+              "editor.codeActionsOnSave": {
+                "source.organizeImports": true,
+                "source.fixAll": true
+              }
+            },
+            "black-formatter.importStrategy": "fromEnvironment",
+            "ruff.importStrategy": "fromEnvironment",
+            "ruff.path": ["/usr/local/py-utils/bin/ruff"]
+          },
+
+          // Add the IDs of extensions you want installed when the container is created.
+          "extensions": [
+            "ms-python.python",
+            "ms-python.black-formatter",
+            "charliermarsh.ruff",
+            "ms-python.vscode-pylance",
+            "bungcip.better-toml",
+            "emeraldwalk.runonsave",
+            "EditorConfig.EditorConfig",
+            "eamodio.gitlens",
+            "github.vscode-pull-request-github",
+            "visualstudioexptteam.vscodeintellicode"
+          ]
+        }
+      },
+
+      "postCreateCommand": "poetry install",
+      "remoteUser": "vscode"
+}
